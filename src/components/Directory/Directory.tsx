@@ -1,7 +1,8 @@
 import React from 'react';
 
-import './Directory.scss';
 import {MenuItem} from '..';
+
+import './Directory.scss';
 
 interface Props {
   data: any[]
