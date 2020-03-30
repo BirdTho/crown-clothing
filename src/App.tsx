@@ -5,11 +5,12 @@ import { HomePage, Page404 } from './pages';
 
 import './App.scss';
 import SHOP_DATA, {ShopData} from './model/shopModel';
-import {CollectionPreview} from './components';
+import {CollectionPreview, Header} from './components';
 
 function App() {
   return (
     <div className=''>
+      <Header/>
       <Switch>
         <Route exact path='/' component={HomePage}/>
         {SHOP_DATA.map((data: ShopData) => {
