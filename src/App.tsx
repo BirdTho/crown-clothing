@@ -5,12 +5,31 @@ import { HomePage, Page404, SignInAndSignUp } from './pages';
 import {CollectionPreview, Header} from './components';
 import SHOP_DATA, {ShopData} from './model/shopModel';
 
-import firebase, { auth } from './firebase/firebase.utils';
+import firebase, { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
 import './App.scss';
 
+interface UserSnapShot {
+  displayName: string,
+  email: string,
+  createdAt: {
+    seconds: number,
+    nanoseconds: number,
+  }
+}
+
+export interface User {
+  id: string,
+  displayName: string,
+  email: string,
+  createdAt: {
+    seconds: number,
+    nanoseconds: number,
+  }
+}
+
 interface State {
-  currentUser: firebase.User | null,
+  currentUser: User | null,
 }
 
 class App extends React.Component<any, State> {
@@ -28,9 +47,21 @@ class App extends React.Component<any, State> {
   }
 
   componentDidMount(): void {
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(user => {
-      this.setState({ currentUser: user });
-    })
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async user => {
+      if (user) {
+        const userRef = await createUserProfileDocument(user);
+        userRef?.onSnapshot((snapShot: firebase.firestore.DocumentSnapshot) => {
+          this.setState({
+            currentUser: {
+              id: snapShot.id,
+              ...snapShot.data() as UserSnapShot,
+            },
+          });
+        });
+      } else {
+        this.setState({currentUser: null});
+      }
+    });
   }
 
   componentWillUnmount(): void {

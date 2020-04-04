@@ -6,3 +6,5 @@ export * from './FormInput/FormInput';
 export * from './Header/Header';
 export * from './MenuItem/MenuItem';
 export * from './SignIn/SignIn';
+export * from './SignUp/SignUp';
+export * from './PasswordFormInput/PasswordFormInput';

@@ -1,14 +1,15 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-import firebase, {auth} from '../../firebase/firebase.utils';
+import {auth} from '../../firebase/firebase.utils';
 
 import { ReactComponent as Logo } from '../../assets/crown-logo.svg';
 
 import './Header.scss';
+import {User} from '../../App';
 
 interface Props {
-  currentUser: firebase.User | null
+  currentUser: User | null
 }
 
 export const Header = ({ currentUser }: Props) => (

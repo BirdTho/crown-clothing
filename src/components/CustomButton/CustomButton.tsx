@@ -8,8 +8,8 @@ interface Props extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement
   isGoogleSignIn?: boolean,
 }
 
-export const CustomButton = ({ children, isGoogleSignIn = false, ...rest }: Props) => (
+export const CustomButton = React.memo(({ children, isGoogleSignIn = false, ...rest }: Props) => (
   <button className={cn('custom-button', isGoogleSignIn ? 'google-sign-in' : null)} {...rest}>
     {children}
   </button>
-);
+));
