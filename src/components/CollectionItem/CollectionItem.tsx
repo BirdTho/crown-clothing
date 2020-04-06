@@ -10,7 +10,7 @@ interface Props {
 
 export const CollectionItem = ({data: {imageUrl, name, price, id}}: Props) => {
   return (
-    <div className='collection-item'>
+    <div className='collection-item noselect'>
       <div className='image' style={{ backgroundImage: `url(${imageUrl})`}}/>
       <div className='collection-footer'>
         <span className='name'>{name}</span>

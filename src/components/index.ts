@@ -1,3 +1,5 @@
+export * from './CartDropdown/CartDropdown';
+export * from './CartIcon/CartIcon';
 export * from './CollectionItem/CollectionItem';
 export * from './CollectionPreview/CollectionPreview';
 export * from './CustomButton/CustomButton';
@@ -5,6 +7,6 @@ export * from './Directory/Directory';
 export * from './FormInput/FormInput';
 export * from './Header/Header';
 export * from './MenuItem/MenuItem';
+export * from './PasswordFormInput/PasswordFormInput';
 export * from './SignIn/SignIn';
 export * from './SignUp/SignUp';
-export * from './PasswordFormInput/PasswordFormInput';

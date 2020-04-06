@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { User } from './types';
 import {setCurrentUser, clearCurrentUser, RootState} from './redux';
 
-import { HomePage, Shop, Page404, SignInAndSignUp } from './pages';
+import { HomePage, Page404, SignInAndSignUp } from './pages';
 import {CollectionPreview, Header} from './components';
 import SHOP_DATA, {ShopData} from './model/shopModel';
 
