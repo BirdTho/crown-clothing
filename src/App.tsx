@@ -1,5 +1,9 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import { User } from './types';
+import { setCurrentUser, clearCurrentUser } from './redux';
 
 import { HomePage, Page404, SignInAndSignUp } from './pages';
 import {CollectionPreview, Header} from './components';
@@ -8,6 +12,7 @@ import SHOP_DATA, {ShopData} from './model/shopModel';
 import firebase, { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
 import './App.scss';
+import {Dispatch} from 'redux';
 
 interface UserSnapShot {
   displayName: string,
@@ -18,48 +23,38 @@ interface UserSnapShot {
   }
 }
 
-export interface User {
-  id: string,
-  displayName: string,
-  email: string,
-  createdAt: {
-    seconds: number,
-    nanoseconds: number,
-  }
+interface DispatchProps {
+  setCurrentUser: (user: User) => void,
+  clearCurrentUser: () => void
 }
 
-interface State {
-  currentUser: User | null,
-}
+type Props = DispatchProps;
 
-class App extends React.Component<any, State> {
-  state: State;
+class App extends React.Component<Props> {
   unsubscribeFromAuth: Function;
 
-  constructor(props: any) {
+  constructor(props: Props) {
     super(props);
-
-    this.state = {
-      currentUser: null,
-    };
 
     this.unsubscribeFromAuth = () => {};
   }
 
   componentDidMount(): void {
+    const {
+      setCurrentUser,
+      clearCurrentUser,
+    } = this.props;
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async user => {
       if (user) {
         const userRef = await createUserProfileDocument(user);
         userRef?.onSnapshot((snapShot: firebase.firestore.DocumentSnapshot) => {
-          this.setState({
-            currentUser: {
-              id: snapShot.id,
-              ...snapShot.data() as UserSnapShot,
-            },
+          setCurrentUser({
+            id: snapShot.id,
+            ...snapShot.data() as UserSnapShot,
           });
         });
       } else {
-        this.setState({currentUser: null});
+        clearCurrentUser();
       }
     });
   }
@@ -69,14 +64,9 @@ class App extends React.Component<any, State> {
   }
 
   render() {
-    const {
-      state: {
-        currentUser,
-      }
-    } = this;
     return (
       <div className=''>
-        <Header currentUser={currentUser}/>
+        <Header/>
         <Switch>
           <Route exact path='/' component={HomePage}/>
           <Route exact path='/signin' component={SignInAndSignUp}/>
@@ -94,4 +84,9 @@ class App extends React.Component<any, State> {
   }
 }
 
-export default App;
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  setCurrentUser: (user: User) => dispatch(setCurrentUser(user)),
+  clearCurrentUser: () => dispatch(clearCurrentUser()),
+});
+
+export default connect(null, mapDispatchToProps)(App);
