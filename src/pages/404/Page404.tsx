@@ -21,6 +21,7 @@ export const Page404 = (props: RouteComponentProps) => {
     }).then(async (data) => {
       const TARGET_HEIGHT = 200;
       const results = await data.json();
+      if (!results.data.length) { return; }
       const values = Object.values(results.data[0].images).filter(
           (obj: any) => obj.height <= 250 && obj.height >= 150 && obj.url
         ).sort((a: any, b: any): number => {
@@ -33,7 +34,7 @@ export const Page404 = (props: RouteComponentProps) => {
 
       setImageObj((values as any[])[0]);
     });
-  });
+  }, [0]);
 
   return (
   <div className='page-404'>

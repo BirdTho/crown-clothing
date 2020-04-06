@@ -1,11 +1,11 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { User } from './types';
-import { setCurrentUser, clearCurrentUser } from './redux';
+import {setCurrentUser, clearCurrentUser, RootState} from './redux';
 
-import { HomePage, Page404, SignInAndSignUp } from './pages';
+import { HomePage, Shop, Page404, SignInAndSignUp } from './pages';
 import {CollectionPreview, Header} from './components';
 import SHOP_DATA, {ShopData} from './model/shopModel';
 
@@ -23,12 +23,16 @@ interface UserSnapShot {
   }
 }
 
-interface DispatchProps {
-  setCurrentUser: (user: User) => void,
-  clearCurrentUser: () => void
+interface StateProps {
+  currentUser: User | null,
 }
 
-type Props = DispatchProps;
+interface DispatchProps {
+  setCurrentUser: (user: User) => void,
+  clearCurrentUser: () => void,
+}
+
+type Props = DispatchProps & StateProps;
 
 class App extends React.Component<Props> {
   unsubscribeFromAuth: Function;
@@ -69,7 +73,9 @@ class App extends React.Component<Props> {
         <Header/>
         <Switch>
           <Route exact path='/' component={HomePage}/>
-          <Route exact path='/signin' component={SignInAndSignUp}/>
+          <Route exact path='/signin'
+            render={() => (this.props.currentUser ? <Redirect to='/'/> : <SignInAndSignUp/>)}
+          />
           {SHOP_DATA.map((data: ShopData) => {
             return (
               <Route key={`route${data.id}`} path={`/shop/${data.routeName}`} render={(routeProps) => {
@@ -84,9 +90,13 @@ class App extends React.Component<Props> {
   }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
+const mapStateToProps = ({ user: { currentUser }}: RootState): StateProps => ({
+  currentUser,
+});
+
+const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
   setCurrentUser: (user: User) => dispatch(setCurrentUser(user)),
   clearCurrentUser: () => dispatch(clearCurrentUser()),
 });
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
