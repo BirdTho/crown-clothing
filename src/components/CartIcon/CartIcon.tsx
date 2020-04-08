@@ -2,7 +2,7 @@ import React from 'react';
 import {Dispatch} from 'redux';
 
 import { connect } from 'react-redux';
-import {RootState, toggleCartDropdown, selectTotalItemCount} from '../../redux';
+import {RootState, toggleCartDropdown, selectCartItemCount} from '../../redux';
 
 import { ReactComponent as ShoppingIcon } from '../../assets/shopping-bag.svg';
 
@@ -28,7 +28,7 @@ const componentCartIcon = ({toggleCartDropdown, totalItems}: Props) => {
 };
 
 const mapStateToProps = (state: RootState): StateProps => ({
-  totalItems: selectTotalItemCount(state)
+  totalItems: selectCartItemCount(state)
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({

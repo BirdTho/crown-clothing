@@ -6,7 +6,7 @@ import { SignInOutButton } from './SignInOutButton';
 import { CartIcon, CardDropdown } from '..';
 import { ReactComponent as Logo } from '../../assets/crown-logo.svg';
 
-import { RootState } from '../../redux';
+import { RootState, selectIsLoggedIn, selectCartHidden } from '../../redux';
 
 import './Header.scss';
 
@@ -17,7 +17,7 @@ interface StateProps {
 
 type Props = StateProps;
 
-const componentHeader = React.memo(({ isLoggedIn, hidden }: Props) => (
+const componentHeader = ({ isLoggedIn, hidden }: Props) => (
   <div className='header'>
     <Link className='logo-container' to='/'>
       <Logo className='logo'/>
@@ -30,11 +30,11 @@ const componentHeader = React.memo(({ isLoggedIn, hidden }: Props) => (
     </div>
     {hidden ? null : <CardDropdown/>}
   </div>
-));
+);
 
-const mapStateToProps = ({user: {currentUser}, cart: {hidden, cartItems}}: RootState) => ({
-  isLoggedIn: !!currentUser,
-  hidden,
+const mapStateToProps = (state: RootState) => ({
+  isLoggedIn: selectIsLoggedIn(state),
+  hidden: selectCartHidden(state),
 });
 
 export const Header = connect(mapStateToProps)(componentHeader);

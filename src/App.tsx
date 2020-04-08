@@ -2,12 +2,13 @@ import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { User } from './types';
-import {setCurrentUser, clearCurrentUser, RootState} from './redux';
+import { HomePage, Page404, SignInAndSignUp, Checkout } from './pages';
 
-import { HomePage, Page404, SignInAndSignUp } from './pages';
 import {CollectionPreview, Header} from './components';
+
 import SHOP_DATA from './model/shopModel';
+import { User } from './types';
+import {setCurrentUser, clearCurrentUser, selectCurrentUser, RootState} from './redux';
 import {ShopData} from './types';
 
 import firebase, { auth, createUserProfileDocument } from './firebase/firebase.utils';
@@ -74,6 +75,7 @@ class App extends React.Component<Props> {
         <Header/>
         <Switch>
           <Route exact path='/' component={HomePage}/>
+          <Route exact path='/checkout' component={Checkout}/>
           <Route exact path='/signin'
             render={() => (this.props.currentUser ? <Redirect to='/'/> : <SignInAndSignUp/>)}
           />
@@ -91,8 +93,8 @@ class App extends React.Component<Props> {
   }
 }
 
-const mapStateToProps = ({ user: { currentUser }}: RootState): StateProps => ({
-  currentUser,
+const mapStateToProps = (state: RootState): StateProps => ({
+  currentUser: selectCurrentUser(state),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
