@@ -32,7 +32,7 @@ const componentHeader = React.memo(({ isLoggedIn, hidden }: Props) => (
   </div>
 ));
 
-const mapStateToProps = ({user: {currentUser}, cart: {hidden}}: RootState) => ({
+const mapStateToProps = ({user: {currentUser}, cart: {hidden, cartItems}}: RootState) => ({
   isLoggedIn: !!currentUser,
   hidden,
 });

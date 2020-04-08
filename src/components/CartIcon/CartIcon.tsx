@@ -1,28 +1,38 @@
 import React from 'react';
+import {Dispatch} from 'redux';
 
 import { connect } from 'react-redux';
-import { toggleCartDropdown } from '../../redux';
+import {RootState, toggleCartDropdown, selectTotalItemCount} from '../../redux';
 
 import { ReactComponent as ShoppingIcon } from '../../assets/shopping-bag.svg';
 
 import './CartIcon.scss';
-import {Dispatch} from 'redux';
+
+interface StateProps {
+  totalItems: number,
+}
 
 interface DispatchProps {
   toggleCartDropdown: () => void
 }
 
-type Props = DispatchProps;
+type Props = DispatchProps & StateProps;
 
-const componentCartIcon = ({toggleCartDropdown}: Props) => (
-  <div className='cart-icon noselect' onClick={toggleCartDropdown}>
-    <ShoppingIcon className='shopping-icon'/>
-    <span className='item-count'>0</span>
-  </div>
-);
+const componentCartIcon = ({toggleCartDropdown, totalItems}: Props) => {
+  return (
+    <div className='cart-icon noselect' onClick={toggleCartDropdown}>
+      <ShoppingIcon className='shopping-icon'/>
+      <span className='item-count'>{totalItems}</span>
+    </div>
+  );
+};
+
+const mapStateToProps = (state: RootState): StateProps => ({
+  totalItems: selectTotalItemCount(state)
+});
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
   toggleCartDropdown: () => dispatch(toggleCartDropdown())
 });
 
-export const CartIcon = connect(null, mapDispatchToProps)(componentCartIcon) ;
+export const CartIcon = connect(mapStateToProps, mapDispatchToProps)(componentCartIcon) ;

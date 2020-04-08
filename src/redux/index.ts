@@ -1,4 +1,4 @@
-export * from './cart/cartActions';
+export * from './cart/cartSelectors';
 export * from './cart/cartActions';
 export * from './cart/cartReducer';
 export * from './user/userActions';
