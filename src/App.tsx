@@ -7,7 +7,8 @@ import {setCurrentUser, clearCurrentUser, RootState} from './redux';
 
 import { HomePage, Page404, SignInAndSignUp } from './pages';
 import {CollectionPreview, Header} from './components';
-import SHOP_DATA, {ShopData} from './model/shopModel';
+import SHOP_DATA from './model/shopModel';
+import {ShopData} from './types';
 
 import firebase, { auth, createUserProfileDocument } from './firebase/firebase.utils';
 

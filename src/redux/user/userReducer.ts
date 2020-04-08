@@ -1,4 +1,6 @@
-import {USER_ACTIONS, UserAction} from './userActions';
+import {createReducer} from '@reduxjs/toolkit';
+
+import {USER_ACTIONS} from './userActions';
 
 import { User } from '../../types';
 
@@ -10,18 +12,7 @@ const INITIAL_STATE : UserState = {
   currentUser: null,
 };
 
-
-export const userReducer = (state: UserState = INITIAL_STATE, action: UserAction): UserState => {
-  switch (action.type) {
-    case USER_ACTIONS.SET_CURRENT_USER:
-      return {
-        currentUser: action.payload
-      };
-    case USER_ACTIONS.CLEAR_CURRENT_USER:
-      return {
-        currentUser: null,
-      };
-    default:
-      return state;
-  }
-};
+export const userReducer = createReducer(INITIAL_STATE, {
+  [USER_ACTIONS.SET_CURRENT_USER]: (state, {payload}) => ({...state, currentUser: payload}),
+  [USER_ACTIONS.CLEAR_CURRENT_USER]: (state) => ({...state, currentUser: null}),
+});

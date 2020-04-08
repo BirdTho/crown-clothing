@@ -1,7 +1,7 @@
 import React from 'react';
 import {RouteComponentProps} from 'react-router-dom';
 
-import {ShopData} from '../../model/shopModel';
+import {ShopData} from '../../types';
 import {CollectionItem} from '..';
 
 import './CollectionPreview.scss';

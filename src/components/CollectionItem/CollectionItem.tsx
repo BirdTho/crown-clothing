@@ -1,14 +1,24 @@
 import React from 'react';
+import {connect} from 'react-redux';
 
-import { ShopItem } from '../../model/shopModel';
+import {ShopItem} from '../../types';
+import {CustomButton} from '..';
 
 import './CollectionItem.scss';
+import {addCartItem, CartAction} from '../../redux';
 
-interface Props {
+interface DispatchProps {
+  addCartItem: (item: ShopItem) => CartAction,
+}
+
+interface OwnProps {
   data: ShopItem,
 }
 
-export const CollectionItem = ({data: {imageUrl, name, price, id}}: Props) => {
+type Props = OwnProps & DispatchProps;
+
+export const componentCollectionItem = ({data, addCartItem}: Props) => {
+  const {imageUrl, name, price} = data;
   return (
     <div className='collection-item noselect'>
       <div className='image' style={{ backgroundImage: `url(${imageUrl})`}}/>
@@ -16,6 +26,12 @@ export const CollectionItem = ({data: {imageUrl, name, price, id}}: Props) => {
         <span className='name'>{name}</span>
         <span className='price'>{price}</span>
       </div>
+      <CustomButton onClick={() => addCartItem(data)} inverted>Add to cart</CustomButton>
     </div>
   );
 };
+
+export const CollectionItem = connect(null, {addCartItem})(componentCollectionItem);
+
+
+

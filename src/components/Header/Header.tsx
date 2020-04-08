@@ -1,24 +1,23 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import {auth} from '../../firebase/firebase.utils';
-
+import { SignInOutButton } from './SignInOutButton';
 import { CartIcon, CardDropdown } from '..';
 import { ReactComponent as Logo } from '../../assets/crown-logo.svg';
 
+import { RootState } from '../../redux';
+
 import './Header.scss';
-import {User} from '../../types';
-import {RootState} from '../../redux';
 
 interface StateProps {
-  currentUser: User | null,
+  isLoggedIn: boolean,
   hidden: boolean
 }
 
 type Props = StateProps;
 
-const componentHeader = ({ currentUser, hidden }: Props) => (
+const componentHeader = React.memo(({ isLoggedIn, hidden }: Props) => (
   <div className='header'>
     <Link className='logo-container' to='/'>
       <Logo className='logo'/>
@@ -26,18 +25,15 @@ const componentHeader = ({ currentUser, hidden }: Props) => (
     <div className='options'>
       <Link className='option' to='/'>SHOP</Link>
       <Link className='option' to='/contact'>CONTACT</Link>
-      {currentUser ?
-        <div className='option' onClick={() => auth.signOut()}>SIGN OUT</div> :
-        <Link className='option' to='/signin'>SIGN IN</Link>
-      }
+      <SignInOutButton isLoggedIn={isLoggedIn}/>
       <CartIcon/>
     </div>
     {hidden ? null : <CardDropdown/>}
   </div>
-);
+));
 
 const mapStateToProps = ({user: {currentUser}, cart: {hidden}}: RootState) => ({
-  currentUser,
+  isLoggedIn: !!currentUser,
   hidden,
 });
 

@@ -34,7 +34,7 @@ export const Page404 = (props: RouteComponentProps) => {
 
       setImageObj((values as any[])[0]);
     });
-  }, [0]);
+  }, [props.location.pathname]);
 
   return (
   <div className='page-404'>
