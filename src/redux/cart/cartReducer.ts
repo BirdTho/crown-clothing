@@ -8,7 +8,7 @@ import {
 } from './cartActions';
 
 import {CartItem} from '../../types';
-import {addItemToCart, removeItemFromCart, reduceItemInCart} from './cartUtils';
+import {addItemToCart, removeItemFromCart, reduceItemInCart} from '.';
 
 export interface CartState {
   hidden: boolean,

@@ -10,5 +10,5 @@ export const selectCurrentUser = createSelector(
 
 export const selectIsLoggedIn = createSelector(
   selectCurrentUser,
-  (currentUser) => !!currentUser
+  currentUser => !!currentUser
 );

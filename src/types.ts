@@ -12,7 +12,7 @@ export interface User {
 export interface SectionModel {
   title: string,
   imageUrl: string,
-  size: string,
+  size?: string,
   id: number,
   linkUrl: string,
 }

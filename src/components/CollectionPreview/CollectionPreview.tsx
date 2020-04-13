@@ -1,32 +1,29 @@
 import React from 'react';
-import {RouteComponentProps} from 'react-router-dom';
 
 import {ShopData} from '../../types';
 import {CollectionItem} from '..';
 
 import './CollectionPreview.scss';
 
-interface Props {
-  data: ShopData
+interface StateProps {
+  readonly data: ShopData
 }
 
-export const CollectionPreview = (props: Props & RouteComponentProps) => {
+type Props = StateProps;
+
+export const CollectionPreview = ({ data }: Props) => {
   const {
-    data: {
-      title,
-      id,
-      items,
-    }
-  } = props;
+    items,
+    id,
+    title,
+  } = data;
   return (
     <div className='collection-preview'>
       <h1 className='title'>{title.toUpperCase()}</h1>
       <div className='preview'>
-        {items.filter((item, i) => i < 4).map(item => {
-          return (
-            <CollectionItem key={`shopdata${id}item${item.id}`} data={item}/>
-          )
-        })}
+        {
+          items.filter((item, i) => i < 4).map(item => (<CollectionItem key={`shopdata${id}item${item.id}`} data={item}/>))
+        }
       </div>
     </div>
   );

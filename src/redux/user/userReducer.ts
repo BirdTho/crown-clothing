@@ -1,6 +1,6 @@
 import {createReducer} from '@reduxjs/toolkit';
 
-import {USER_ACTIONS} from './userActions';
+import {USER_ACTIONS} from '.';
 
 import { User } from '../../types';
 

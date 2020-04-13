@@ -11,8 +11,8 @@ import { RootState, selectIsLoggedIn, selectCartHidden } from '../../redux';
 import './Header.scss';
 
 interface StateProps {
-  isLoggedIn: boolean,
-  hidden: boolean
+  readonly isLoggedIn: boolean,
+  readonly hidden: boolean
 }
 
 type Props = StateProps;
@@ -23,7 +23,7 @@ const componentHeader = ({ isLoggedIn, hidden }: Props) => (
       <Logo className='logo'/>
     </Link>
     <div className='options'>
-      <Link className='option' to='/'>SHOP</Link>
+      <Link className='option' to='/shop'>SHOP</Link>
       <Link className='option' to='/contact'>CONTACT</Link>
       <SignInOutButton isLoggedIn={isLoggedIn}/>
       <CartIcon/>

@@ -5,7 +5,7 @@ import {RootState, selectCartItems, selectCartTotal} from '../../redux';
 import {CartItem} from '../../types';
 
 import './Checkout.scss';
-import {CheckoutItem} from '../../components';
+import {CheckoutItem, StripeCheckoutButton} from '../../components';
 
 interface StateProps {
   cartItems: CartItem[],
@@ -38,6 +38,12 @@ export const componentCheckout = ({cartItems, cartTotal}: Props) => {
         cartItems.map(cartItem => <CheckoutItem key={`ci${cartItem.id}`} item={cartItem}/>)
       }
       <div className='total'>${cartTotal}</div>
+      <div className='test-warning'>
+        *Please use the following test credit card for payments*
+        <br/>
+        4242 4242 4242 4242 - Exp: 01/20 - CVV: 123
+      </div>
+      <StripeCheckoutButton price={cartTotal}/>
     </div>
   );
 };

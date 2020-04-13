@@ -1,20 +1,16 @@
 import React from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import {Route, Switch, Redirect} from 'react-router-dom';
+import {Dispatch} from 'redux';
 import { connect } from 'react-redux';
 
-import { HomePage, Page404, SignInAndSignUp, Checkout } from './pages';
-
-import {CollectionPreview, Header} from './components';
-
-import SHOP_DATA from './model/shopModel';
-import { User } from './types';
-import {setCurrentUser, clearCurrentUser, selectCurrentUser, RootState} from './redux';
-import {ShopData} from './types';
+import {HomePage, Page404, SignInAndSignUp, Checkout, ShopPage} from './pages';
+import {Header} from './components';
 
 import firebase, { auth, createUserProfileDocument } from './firebase/firebase.utils';
+import {setCurrentUser, clearCurrentUser, selectCurrentUser, RootState} from './redux';
+import { User } from './types';
 
 import './App.scss';
-import {Dispatch} from 'redux';
 
 interface UserSnapShot {
   displayName: string,
@@ -76,16 +72,10 @@ class App extends React.Component<Props> {
         <Switch>
           <Route exact path='/' component={HomePage}/>
           <Route exact path='/checkout' component={Checkout}/>
+          <Route path='/shop' component={ShopPage}/>
           <Route exact path='/signin'
             render={() => (this.props.currentUser ? <Redirect to='/'/> : <SignInAndSignUp/>)}
           />
-          {SHOP_DATA.map((data: ShopData) => {
-            return (
-              <Route key={`route${data.id}`} path={`/shop/${data.routeName}`} render={(routeProps) => {
-                return <CollectionPreview key={`shopdata${data.id}`} data={data} {...routeProps}/>;
-              }}/>
-            );
-          })}
           <Route component={Page404}/>
         </Switch>
       </div>
