@@ -4,9 +4,7 @@ import {Dispatch} from 'redux';
 import { connect } from 'react-redux';
 import {RootState, toggleCartDropdown, selectCartItemCount} from '../../redux';
 
-import { ReactComponent as ShoppingIcon } from '../../assets/shopping-bag.svg';
-
-import './CartIcon.scss';
+import {CartItemContainer, ItemCountContainer, ShoppingIconContainer} from './CartIcon.styles';
 
 interface StateProps {
   totalItems: number,
@@ -20,10 +18,10 @@ type Props = DispatchProps & StateProps;
 
 const componentCartIcon = ({toggleCartDropdown, totalItems}: Props) => {
   return (
-    <div className='cart-icon noselect' onClick={toggleCartDropdown}>
-      <ShoppingIcon className='shopping-icon'/>
-      <span className='item-count'>{totalItems}</span>
-    </div>
+    <CartItemContainer className='noselect' onClick={toggleCartDropdown}>
+      <ShoppingIconContainer/>
+      <ItemCountContainer>{totalItems}</ItemCountContainer>
+    </CartItemContainer>
   );
 };
 

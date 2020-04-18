@@ -3,8 +3,18 @@ import {connect} from 'react-redux';
 
 import {removeCartItem, addCartItem, reduceCartItem} from '../../redux';
 import {CartItem} from '../../types';
-
-import './CheckoutItem.scss';
+import {
+  CheckoutItemContainer,
+  ImageContainerContainer,
+  ImageContainer,
+  QuantityContainer,
+  NumberContainer,
+  NameContainer,
+  PriceContainer,
+  UpArrowContainer,
+  DownArrowContainer,
+  RemoveButtonContainer,
+} from './CheckoutItem.styles';
 
 interface DispatchProps {
   addCartItem: (item: CartItem) => void,
@@ -26,19 +36,19 @@ export const componentCheckoutItem = ({item, reduceCartItem, removeCartItem, add
     imageUrl,
   } = item;
   return (
-    <div className='checkout-item'>
-      <div className='image-container'>
-        <img src={imageUrl} alt='item'/>
-      </div>
-      <span className='name'>{name}</span>
-      <div className='quantity noselect'>
-        <span className='up-arrow noselect' onClick={() => addCartItem(item)}>&#10148;</span>
-        <span className='down-arrow noselect' onClick={() => reduceCartItem(item)}>&#10148;</span>
-        <span className='number noselect'>{quantity}</span>
-      </div>
-      <span className='price'>{price}</span>
-      <div className='remove-button' onClick={() => removeCartItem(item)}>&#10005;</div>
-    </div>
+    <CheckoutItemContainer>
+      <ImageContainerContainer>
+        <ImageContainer src={imageUrl} alt='item'/>
+      </ImageContainerContainer>
+      <NameContainer>{name}</NameContainer>
+      <QuantityContainer className='noselect'>
+        <UpArrowContainer className='noselect' onClick={() => addCartItem(item)}>&#10148;</UpArrowContainer>
+        <DownArrowContainer className='noselect' onClick={() => reduceCartItem(item)}>&#10148;</DownArrowContainer>
+        <NumberContainer className='noselect'>{quantity}</NumberContainer>
+      </QuantityContainer>
+      <PriceContainer>{price}</PriceContainer>
+      <RemoveButtonContainer onClick={() => removeCartItem(item)}>&#10005;</RemoveButtonContainer>
+    </CheckoutItemContainer>
   );
 };
 

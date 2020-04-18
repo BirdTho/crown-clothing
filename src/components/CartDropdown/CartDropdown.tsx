@@ -3,9 +3,13 @@ import {Dispatch} from 'redux';
 import {connect} from 'react-redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 
-import { CartDropdownItem, CustomButton } from '..';
+import {
+  CartDropdownContainer,
+  CartDropdownItem,
+  CartItemsContainer,
+  CustomButton, EmptyMessageContainer,
+} from '..';
 
-import './CartDropdown.scss';
 import {CartItem} from '../../types';
 import {RootState, selectCartItems, hideCartDropdown} from '../../redux';
 
@@ -20,21 +24,21 @@ interface DispatchProps {
 type Props = StateProps & DispatchProps & RouteComponentProps;
 
 const componentCardDropdown = ({cartItems, history, dispatch}: Props) => (
-  <div className='cart-dropdown'>
-    <div className='cart-items'>
+  <CartDropdownContainer>
+    <CartItemsContainer>
       {cartItems.length ?
         cartItems.map(cartItem => (
           <CartDropdownItem key={`cdi${cartItem.id}`} item={cartItem}/>
         )) : (
-          <span className='empty-message'>Your cart is empty</span>
+          <EmptyMessageContainer>Your cart is empty</EmptyMessageContainer>
         )
       }
-    </div>
+    </CartItemsContainer>
     <CustomButton onClick={() => {
       dispatch(hideCartDropdown());
       history.push('/checkout');
     }}>GO TO CHECKOUT</CustomButton>
-  </div>
+  </CartDropdownContainer>
 );
 
 const mapStateToProps = (state: RootState): StateProps => ({

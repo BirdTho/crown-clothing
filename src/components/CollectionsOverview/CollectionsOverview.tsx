@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-import './CollectionsOverview.scss';
+import {CollectionsOverviewContainer} from './CollectionsOverview.styles';
 import {RootState, selectDirectoryShop} from '../../redux';
 import {ShopData} from '../../types';
 import {CollectionPreview} from '..';
@@ -15,11 +15,11 @@ interface StateProps {
 type Props = StateProps;
 
 export const componentCollectionsOverview = ({shop}: Props) => (
-  <div className='collections-overview'>
+  <CollectionsOverviewContainer>
     {Object.values(shop).map((data: ShopData) => (
       <CollectionPreview key={`shopdata${data.id}`} data={data}/>
     ))}
-  </div>
+  </CollectionsOverviewContainer>
 );
 
 const mapStateToProps = (state: RootState) => ({

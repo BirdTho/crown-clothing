@@ -1,6 +1,13 @@
 import React from 'react';
 
-import './CartDropdownItem.scss';
+import {
+  CartItemContainer,
+  ImageContainer,
+  ItemDetailsContainer,
+  NameContainer,
+  PriceContainer,
+} from './CartDropdownItem.styles';
+
 import {CartItem} from '../../types';
 
 interface Props {
@@ -8,11 +15,11 @@ interface Props {
 }
 
 export const CartDropdownItem = ({item: { imageUrl, price, name, quantity}}: Props) => (
-  <div className='cart-item'>
-    <img src={imageUrl} alt='item'/>
-    <div className='item-details'>
-      <span className='name'>{name}</span>
-      <span className='price'>{quantity} x ${price}</span>
-    </div>
-  </div>
+  <CartItemContainer>
+    <ImageContainer src={imageUrl} alt='item'/>
+    <ItemDetailsContainer>
+      <NameContainer>{name}</NameContainer>
+      <PriceContainer>{quantity} x ${price}</PriceContainer>
+    </ItemDetailsContainer>
+  </CartItemContainer>
 );

@@ -1,7 +1,11 @@
 import React, {ChangeEvent} from 'react';
 import cn from 'classnames';
 
-import './FormInput.scss';
+import {
+  GroupContainer,
+  FormInputContainer,
+  FormInputLabelContainer,
+} from './FormInput.styles';
 
 interface Props {
   handleChange: (event: ChangeEvent<HTMLInputElement>) => void,
@@ -13,9 +17,9 @@ interface Props {
 }
 
 export const FormInput = ({ handleChange, label = null, ...otherProps }: Props) => (
-  <div className='group'>
-    <input className='form-input' onChange={handleChange} {...otherProps}/>
-    { label ? (<label className={cn('form-input-label', otherProps.value.length ? 'shrink' : null)}
-       htmlFor={otherProps.name}>{label}</label>) : null }
-  </div>
+  <GroupContainer>
+    <FormInputContainer onChange={handleChange} {...otherProps}/>
+    { label ? (<FormInputLabelContainer className={cn(otherProps.value.length ? 'shrink' : null)}
+       htmlFor={otherProps.name}>{label}</FormInputLabelContainer>) : null }
+  </GroupContainer>
 );

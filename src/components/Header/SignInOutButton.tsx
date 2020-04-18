@@ -1,6 +1,6 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 
+import {OptionLink} from './Header.styles';
 import {auth} from '../../firebase/firebase.utils';
 
 interface Props {
@@ -9,8 +9,8 @@ interface Props {
 
 export const SignInOutButton = React.memo(({isLoggedIn}: Props) => {
   if (isLoggedIn) {
-    return <div className='option' onClick={() => auth.signOut()}>SIGN OUT</div>;
+    return <OptionLink as='div' onClick={() => auth.signOut()}>SIGN OUT</OptionLink>;
   } else {
-    return <Link className='option' to='/signin'>SIGN IN</Link>;
+    return <OptionLink to='/signin'>SIGN IN</OptionLink>;
   }
 });

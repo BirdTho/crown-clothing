@@ -3,7 +3,11 @@ import React from 'react';
 import {ShopData} from '../../types';
 import {CollectionItem} from '..';
 
-import './CollectionPreview.scss';
+import {
+  CollectionPreviewContainer,
+  PreviewContainer,
+  TitleContainer
+} from './CollectionPreview.styles';
 
 interface StateProps {
   readonly data: ShopData
@@ -18,13 +22,13 @@ export const CollectionPreview = ({ data }: Props) => {
     title,
   } = data;
   return (
-    <div className='collection-preview'>
-      <h1 className='title'>{title.toUpperCase()}</h1>
-      <div className='preview'>
+    <CollectionPreviewContainer>
+      <TitleContainer>{title.toUpperCase()}</TitleContainer>
+      <PreviewContainer>
         {
           items.filter((item, i) => i < 4).map(item => (<CollectionItem key={`shopdata${id}item${item.id}`} data={item}/>))
         }
-      </div>
-    </div>
+      </PreviewContainer>
+    </CollectionPreviewContainer>
   );
 };

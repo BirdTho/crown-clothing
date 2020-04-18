@@ -3,6 +3,7 @@ import {RouteComponentProps} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 import {CollectionItem} from '../../components';
+import {CollectionPageContainer, TitleContainer, ItemsContainer} from './Collection.styles';
 import {ShopData} from '../../types';
 import {RootState, selectDirectoryShopCategory} from '../../redux';
 
@@ -17,7 +18,7 @@ interface LocalProps {
   readonly data: ShopData | undefined
 }
 
-type Props = RouteComponentProps & LocalProps & RouteComponentProps;
+type Props = LocalProps & RouteComponentProps;
 
 export const componentCollection = ({data, ...routeComponentProps}: Props) => {
   if (data) {
@@ -25,14 +26,14 @@ export const componentCollection = ({data, ...routeComponentProps}: Props) => {
       title, items, id,
     } = data;
     return (
-      <div className='collection-page'>
-        <h2 className='title'>{ title }</h2>
-        <div className='items'>
+      <CollectionPageContainer>
+        <TitleContainer>{ title }</TitleContainer>
+        <ItemsContainer>
           {
             items.map(item => <CollectionItem key={`cmpColl${id}item${item.id}`} data={item}/>)
           }
-        </div>
-      </div>
+        </ItemsContainer>
+      </CollectionPageContainer>
     );
   } else {
     return <Page404 {...routeComponentProps}/>

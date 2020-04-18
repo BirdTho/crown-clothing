@@ -1,14 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { SignInOutButton } from './SignInOutButton';
+import { HeaderContainer, LogoContainer, OptionsContainer, OptionLink } from './Header.styles';
 import { CartIcon, CardDropdown } from '..';
 import { ReactComponent as Logo } from '../../assets/crown-logo.svg';
 
 import { RootState, selectIsLoggedIn, selectCartHidden } from '../../redux';
-
-import './Header.scss';
 
 interface StateProps {
   readonly isLoggedIn: boolean,
@@ -18,18 +16,18 @@ interface StateProps {
 type Props = StateProps;
 
 const componentHeader = ({ isLoggedIn, hidden }: Props) => (
-  <div className='header'>
-    <Link className='logo-container' to='/'>
+  <HeaderContainer>
+    <LogoContainer to='/'>
       <Logo className='logo'/>
-    </Link>
-    <div className='options'>
-      <Link className='option' to='/shop'>SHOP</Link>
-      <Link className='option' to='/contact'>CONTACT</Link>
+    </LogoContainer>
+    <OptionsContainer>
+      <OptionLink to='/shop'>SHOP</OptionLink>
+      <OptionLink to='/contact'>CONTACT</OptionLink>
       <SignInOutButton isLoggedIn={isLoggedIn}/>
       <CartIcon/>
-    </div>
+    </OptionsContainer>
     {hidden ? null : <CardDropdown/>}
-  </div>
+  </HeaderContainer>
 );
 
 const mapStateToProps = (state: RootState) => ({

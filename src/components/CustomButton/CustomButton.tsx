@@ -1,17 +1,17 @@
-import React, {ButtonHTMLAttributes, DetailedHTMLProps} from 'react';
-import cn from 'classnames';
+import React from 'react';
 
-import './CustomButton.scss';
+import {CustomButtonContainer} from './CustomButton.styles';
 
-interface Props extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
+export interface Props {
   children: any,
   isGoogleSignIn?: boolean,
   inverted?: boolean,
+  onClick?: () => void,
+  type?: 'button' | 'submit' | 'reset' | undefined,
 }
 
-export const CustomButton = React.memo(({ children, isGoogleSignIn = false, inverted = false, ...rest }: Props) => (
-  <button className={
-    cn('custom-button', isGoogleSignIn && 'google-sign-in', inverted && 'inverted')} {...rest}>
+export const CustomButton = React.memo(({ children, ...props }: Props) => (
+  <CustomButtonContainer {...props}>
     {children}
-  </button>
+  </CustomButtonContainer>
 ));
