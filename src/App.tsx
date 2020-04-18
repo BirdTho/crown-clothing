@@ -10,8 +10,6 @@ import firebase, { auth, createUserProfileDocument } from './firebase/firebase.u
 import {setCurrentUser, clearCurrentUser, selectCurrentUser, RootState} from './redux';
 import { User } from './types';
 
-import './App.scss';
-
 interface UserSnapShot {
   displayName: string,
   email: string,

@@ -2,7 +2,13 @@ import React, {useEffect, useState} from 'react';
 
 import { RouteComponentProps } from 'react-router-dom';
 
-import './Page404.scss';
+import {
+  Page404Container,
+  H1404Container,
+  P404Container,
+  Img404Container,
+  Sub404Container,
+} from './Page404.styles';
 
 const GIPHY_API_KEY = 'Uzt3Uf7bsGLp7dGObRQNme4UZOJUIKar';
 
@@ -37,11 +43,11 @@ export const Page404 = (props: RouteComponentProps) => {
   }, [props.location.pathname]);
 
   return (
-  <div className='page-404'>
-    <h1>404</h1>
-    <p>Page {props.location.pathname} does not exist.</p>
-    {imgObj && (<img src={imgObj.url} alt='Giphy 404 animation'/>)}
-    <sub>Powered by Giphy</sub>
-  </div>
+  <Page404Container>
+    <H1404Container>404</H1404Container>
+    <P404Container>Page {props.location.pathname} does not exist.</P404Container>
+    {imgObj && (<Img404Container src={imgObj.url} alt='Giphy 404 animation'/>)}
+    <Sub404Container>Powered by Giphy</Sub404Container>
+  </Page404Container>
 )
 };

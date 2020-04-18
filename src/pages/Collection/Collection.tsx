@@ -7,7 +7,6 @@ import {CollectionPageContainer, TitleContainer, ItemsContainer} from './Collect
 import {ShopData} from '../../types';
 import {RootState, selectDirectoryShopCategory} from '../../redux';
 
-import './Collection.scss';
 import {Page404} from '..';
 
 interface CategoryParams {
@@ -45,4 +44,4 @@ const mapStateToProps = (state: RootState, ownProps: RouteComponentProps) => ({
   data: selectDirectoryShopCategory(state)((ownProps.match.params as CategoryParams).category)
 });
 
-export const  Collection = connect(mapStateToProps)(componentCollection);
+export const Collection = connect(mapStateToProps)(componentCollection);
